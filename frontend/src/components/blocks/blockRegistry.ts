@@ -1,10 +1,13 @@
 import TextInputBlock from "./TextInputBlock/Block";
+import TextInputConfigPanel from "./TextInputBlock/ConfigPanel";
+import { inputBlockSchema } from "./TextInputBlock/schema";
 
 export const BLOCK_REGISTRY = {
     textInputBlock : {
         label : "Text Input",
         component : TextInputBlock,
-        defaultConfig: { value: '' },
+        configComponent : TextInputConfigPanel,
+        defaultConfig: inputBlockSchema,
         inputs: 0,
         outputs: 1,
     }

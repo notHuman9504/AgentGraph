@@ -11,7 +11,9 @@ import "@xyflow/react/dist/style.css";
 import { DnDProvider, useDnD } from "../hooks/DnDContext";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "./Sidebar";
-import {nodeTypes} from "./blocks/blockRegistry";
+import {BLOCK_REGISTRY, nodeTypes} from "./blocks/blockRegistry";
+import { useBlock } from "./PipelineProvider";
+import ConfigPanel from "./ConfigPanel";
 
 const initialNodes = [
   {
@@ -21,16 +23,18 @@ const initialNodes = [
     type: "input",
   },
   { id: "n2", position: { x: 0, y: 100 }, data: { label: "Node 2" } },
+  { id: "n3", position: { x: 0, y: 150 }, data: { label: "Node 3" } },
 ];
 const initialEdges = [{ id: "n1-n2", source: "n1", target: "n2" }];
 
-const getId = () => `dndnode_${uuidv4()}`;
+const getId = () => `${uuidv4()}`;
 
 function FlowPlayground() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
   const { screenToFlowPosition } = useReactFlow();
   const [type] = useDnD();
+  const { blockId, setBlockId } = useBlock();
 
   const onNodesChange = useCallback(
     (changes) =>
@@ -65,9 +69,8 @@ function FlowPlayground() {
 
       console.log("Creating node of type:", type);
 
-      // project was renamed to screenToFlowPosition
-      // and you don't need to subtract the reactFlowBounds.left/top anymore
-      // details: https://reactflow.dev/whats-new/2023-11-10
+      const defaultConfig = {...BLOCK_REGISTRY[type].defaultConfig};
+
       const position = screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
@@ -76,7 +79,7 @@ function FlowPlayground() {
         id: getId(),
         type,
         position,
-        data: { label: `${type} node` },
+        data: { config : defaultConfig },
       };
 
       setNodes((nds) => nds.concat(newNode));
@@ -98,6 +101,23 @@ function FlowPlayground() {
             Run
         </button>
     </div>
+    { 
+        blockId && <ConfigPanel node = {nodes.find(node => {
+            return node.id === blockId
+        })} 
+        onSave={(node)=>{
+          let updatedNodes = nodes.map(ele => {
+            if(ele.id == blockId)return node;
+            return ele;
+          })
+
+          setNodes(updatedNodes)
+        }}
+        closePanel={()=>{
+            setBlockId(null);
+        }
+      } />
+    }
     <Sidebar nodeKeys={Object.keys(nodeTypes)}/>
   </div>
     <div className="h-full w-full">

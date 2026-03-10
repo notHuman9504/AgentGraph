@@ -1,14 +1,15 @@
 import Playground from "../components/playground";
-import Sidebar from "../components/Sidebar";
+import {PipelineProvider} from "../components/PipelineProvider"
 
 
 function Dashboard() {
   return (
-    //give red background
     <div>
       <div>
         <div className="h-screen w-full">
-            <Playground></Playground>
+            <PipelineProvider>
+            <Playground/>
+            </PipelineProvider>
         </div>
       </div>
     </div>
