@@ -1,18 +1,10 @@
 import PrimaryButton from "../../PrimaryButton";
 
-const TextInputConfigPanel = ({config, onSave}) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const textValue = formData.get("textValue")
-
-    config.value = textValue;
-    onSave(config);
-  };
+const TextOutputConfigPanel = ({config}) => {
   return (
     <>
       <div className="h-full">
-        <form className="h-full" onSubmit={handleSubmit}>
+        <form className="h-full">
           <div className="flex flex-col h-full justify-between py-8">
             <div>
             <input
@@ -22,7 +14,6 @@ const TextInputConfigPanel = ({config, onSave}) => {
               placeholder="Enter your text input"
             />
             </div>
-            <PrimaryButton/>
           </div>
         </form>
       </div>
@@ -30,4 +21,4 @@ const TextInputConfigPanel = ({config, onSave}) => {
   );
 };
 
-export default TextInputConfigPanel;
+export default TextOutputConfigPanel;

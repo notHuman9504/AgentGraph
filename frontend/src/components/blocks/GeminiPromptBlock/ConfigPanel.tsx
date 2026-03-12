@@ -1,13 +1,13 @@
 import PrimaryButton from "../../PrimaryButton";
 
-const TextInputConfigPanel = ({config, onSave}) => {
+const GeminiPromptBlockConfigPanel = ({config, onSave}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const textValue = formData.get("textValue")
+    // const formData = new FormData(e.currentTarget);
+    // const textValue = formData.get("textValue")
 
-    config.value = textValue;
-    onSave(config);
+    // config.value = textValue;
+    // onSave(config);
   };
   return (
     <>
@@ -30,4 +30,4 @@ const TextInputConfigPanel = ({config, onSave}) => {
   );
 };
 
-export default TextInputConfigPanel;
+export default GeminiPromptBlockConfigPanel;

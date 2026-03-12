@@ -1,4 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { PlusIcon } from "@heroicons/react/24/outline";
+
 import {
   ReactFlow,
   applyNodeChanges,
@@ -6,6 +8,9 @@ import {
   addEdge,
   useReactFlow,
   ReactFlowProvider,
+  Background,
+  BackgroundVariant,
+  MarkerType,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { DnDProvider, useDnD } from "../hooks/DnDContext";
@@ -14,27 +19,15 @@ import Sidebar from "./Sidebar";
 import {BLOCK_REGISTRY, nodeTypes} from "./blocks/blockRegistry";
 import { useBlock } from "./PipelineProvider";
 import ConfigPanel from "./ConfigPanel";
-
-const initialNodes = [
-  {
-    id: "n1",
-    position: { x: 0, y: 0 },
-    data: { label: "Node 1" },
-    type: "input",
-  },
-  { id: "n2", position: { x: 0, y: 100 }, data: { label: "Node 2" } },
-  { id: "n3", position: { x: 0, y: 150 }, data: { label: "Node 3" } },
-];
-const initialEdges = [{ id: "n1-n2", source: "n1", target: "n2" }];
+import RunButton from "./RunButton";
 
 const getId = () => `${uuidv4()}`;
 
 function FlowPlayground() {
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
   const { screenToFlowPosition } = useReactFlow();
   const [type] = useDnD();
-  const { blockId, setBlockId } = useBlock();
+  const [menuOpen, setMenuOpen] = useState(true); 
+  const { blockId, setBlockId, nodes, setNodes, edges, setEdges } = useBlock();
 
   const onNodesChange = useCallback(
     (changes) =>
@@ -46,6 +39,8 @@ function FlowPlayground() {
       setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
     [],
   );
+  
+
   const onConnect = useCallback(
     (params) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     [],
@@ -94,13 +89,13 @@ function FlowPlayground() {
     event.dataTransfer.effectAllowed = 'move';
   };
 
-  return (<div className="flex h-full">
-  <div className="inline-block w-64 border-r overflow-auto">
-    <div className="sticky top-0">
-        <button className="bg-blue-500 text-white px-4 py-2 m-4 rounded">
-            Run
-        </button>
+  return (<>
+  <div className="fixed z-20 bottom-4 w-32 left-1/2 -translate-x-1/2">
+      <RunButton/>
     </div>
+  
+  <div className="flex h-full p-3 bg-slate-300">
+  <div className={"inline-block overflow-visible transition-all duration-300 " + (menuOpen ? "w-64" : "w-0")}>
     { 
         blockId && <ConfigPanel node = {nodes.find(node => {
             return node.id === blockId
@@ -112,12 +107,25 @@ function FlowPlayground() {
           })
 
           setNodes(updatedNodes)
+          setBlockId(null);
         }}
         closePanel={()=>{
             setBlockId(null);
         }
       } />
     }
+    <div className="my-6 h-6 relative">
+      <span onClick={()=>{
+        setMenuOpen(prev => !prev)
+      }} className={`${menuOpen ? "bg-red-400 shadow-red-400/50" : "bg-blue-400 shadow-blue-400/50"} transition-all duration-300 absolute w-66 h-12 px-4 z-10 -right-12 rounded-full flex border-2 border-white flex justify-between items-center shadow-lg text-white`}>
+<div>
+    Close
+</div>
+<div>
+<PlusIcon className={`w-6 h-6 stroke-2 transition-transform duration-300 ${menuOpen ? "rotate-45" : "rotate-0"}`}/>
+</div>
+      </span>
+    </div>
     <Sidebar nodeKeys={Object.keys(nodeTypes)}/>
   </div>
     <div className="h-full w-full">
@@ -128,13 +136,22 @@ function FlowPlayground() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        defaultEdgeOptions={{
+          markerEnd: {
+            type: MarkerType.ArrowClosed,
+          },
+        }}
         onDrop={onDrop}
         onDragStart={onDragStart}
         onDragOver={onDragOver}
+        className="rounded-lg shadow-md"
         fitView
-      />
+      >
+        <Background variant={BackgroundVariant.Lines} gap={24} bgColor="white" color="#cccccc2e" />
+        </ReactFlow>
     </div>
     </div>
+    </>
   );
 }
 
