@@ -1,5 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Iosevka+Charon:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
 
-body{
-    background-color: oklch(86.9% 0.022 252.894);
+body {
+  background-color: oklch(86.9% 0.022 252.894);
+  font-family: "Rubik", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.good-font {
+  font-family: "Iosevka Charon", monospace;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.good-font-head {
+  font-family: "Iosevka Charon", monospace;
+  font-weight: 600;
+  font-style: normal;
 }

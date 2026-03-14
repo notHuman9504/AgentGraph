@@ -4,7 +4,7 @@ import BlockWrapper from "../BlockWrapper";
 const TextOutputBlock = ({ data, id, type }) => {
   return (
     <BlockWrapper BlockId={id} BlockData={data} BlockType={type}>
-      <div className="border-white border-2 bg-radial from-emerald-500 to-teal-400 w-14 h-6 rounded-full text-[7px] shadow-emerald-500/50 shadow-lg">
+      <div className="border-white border bg-radial from-emerald-500 to-teal-400 w-14 h-6 rounded-md text-[7px] shadow-emerald-500/50 shadow-lg">
         <div className="relative flex items-center w-full h-full">
           <Handle
             type="target"

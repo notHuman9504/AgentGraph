@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDnD } from '../hooks/DnDContext';
 
-export default ({nodeKeys}) => {
+export default ({nodeList}) => {
   const [_, setType] = useDnD();
 
   const onDragStart = (event, nodeType) => {
@@ -10,7 +10,7 @@ export default ({nodeKeys}) => {
 
     const ghost = event.currentTarget.cloneNode(true) as HTMLElement;
     ghost.style.backgroundColor = '#e2e8f0';
-    ghost.style.borderRadius = '8px';
+    ghost.style.borderRadius = '6px';
     ghost.style.opacity = '1';
     ghost.style.position = 'absolute';
     ghost.style.top = '-1000px';
@@ -26,14 +26,14 @@ export default ({nodeKeys}) => {
 
   return (
     <div draggable={false} className="py-4 px-2">
-      {nodeKeys.map((key) => (
+      {nodeList.map((node) => (
         <div
-          key={key}
-          className="p-1 rounded-lg hover:bg-slate-200 my-1"
-          onDragStart={(event) => onDragStart(event, key)}
+          key={node.type}
+          className="p-1 rounded-md hover:bg-slate-200 my-1 whitespace-nowrap"
+          onDragStart={(event) => onDragStart(event, node.type)}
           draggable
         >
-          {key || "Invalid Type"}
+          {node.label || "Invalid Type"}
         </div>
       ))}
     </div>

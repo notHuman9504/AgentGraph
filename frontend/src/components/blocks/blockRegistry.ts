@@ -38,3 +38,8 @@ export const BLOCK_REGISTRY = {
 export const nodeTypes = Object.fromEntries(
   Object.entries(BLOCK_REGISTRY).map(([type, block]) => [type, block.component])
 );
+
+export const nodeList = Object.entries(BLOCK_REGISTRY).map(([type, block]) => ({
+  type: type,
+  label: block.label
+}));

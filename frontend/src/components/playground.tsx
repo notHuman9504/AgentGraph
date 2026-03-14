@@ -16,7 +16,7 @@ import "@xyflow/react/dist/style.css";
 import { DnDProvider, useDnD } from "../hooks/DnDContext";
 import { v4 as uuidv4 } from "uuid";
 import Sidebar from "./Sidebar";
-import {BLOCK_REGISTRY, nodeTypes} from "./blocks/blockRegistry";
+import {BLOCK_REGISTRY, nodeList, nodeTypes} from "./blocks/blockRegistry";
 import { useBlock } from "./PipelineProvider";
 import ConfigPanel from "./ConfigPanel";
 import RunButton from "./RunButton";
@@ -26,7 +26,7 @@ const getId = () => `${uuidv4()}`;
 function FlowPlayground() {
   const { screenToFlowPosition } = useReactFlow();
   const [type] = useDnD();
-  const [menuOpen, setMenuOpen] = useState(true); 
+  const [menuOpen, setMenuOpen] = useState(false); 
   const { blockId, setBlockId, nodes, setNodes, edges, setEdges } = useBlock();
 
   const onNodesChange = useCallback(
@@ -90,7 +90,7 @@ function FlowPlayground() {
   };
 
   return (<>
-  <div className="fixed z-20 bottom-4 w-32 left-1/2 -translate-x-1/2">
+  <div className="fixed z-20 bottom-1 w-32 right-1">
       <RunButton/>
     </div>
   
@@ -117,7 +117,7 @@ function FlowPlayground() {
     <div className="my-6 h-6 relative">
       <span onClick={()=>{
         setMenuOpen(prev => !prev)
-      }} className={`${menuOpen ? "bg-red-400 shadow-red-400/50" : "bg-blue-400 shadow-blue-400/50"} transition-all duration-300 absolute w-66 h-12 px-4 z-10 -right-12 rounded-full flex border-2 border-white flex justify-between items-center shadow-lg text-white`}>
+      }} className={`${menuOpen ? "bg-red-400 shadow-red-400/50" : "bg-blue-400 shadow-blue-400/50"} transition-all duration-300 absolute w-66 h-12 px-4 z-10 -right-12 rounded-lg flex border-2 border-white flex justify-between items-center shadow-lg text-white`}>
 <div>
     Close
 </div>
@@ -126,7 +126,7 @@ function FlowPlayground() {
 </div>
       </span>
     </div>
-    <Sidebar nodeKeys={Object.keys(nodeTypes)}/>
+    <Sidebar nodeList={nodeList}/>
   </div>
     <div className="h-full w-full">
       <ReactFlow
