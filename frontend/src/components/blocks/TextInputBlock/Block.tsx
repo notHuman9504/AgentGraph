@@ -10,11 +10,7 @@ const TextInputBlock = ({ data, id, type }) => {
             Text Input
           </div>
 
-          <Handle
-            type="source"
-            position={Position.Right}
-            id="text_value"
-          />
+          <Handle type="source" position={Position.Right} id="text_value" />
         </div>
       </div>
     </BlockWrapper>

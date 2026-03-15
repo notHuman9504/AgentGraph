@@ -107,7 +107,6 @@ function FlowPlayground() {
           })
 
           setNodes(updatedNodes)
-          setBlockId(null);
         }}
         closePanel={()=>{
             setBlockId(null);

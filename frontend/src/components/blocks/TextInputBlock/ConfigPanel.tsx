@@ -1,3 +1,4 @@
+import LabeledTextArea from "../../inputs/LabeledTextArea"
 import PrimaryButton from "../../PrimaryButton";
 
 const TextInputConfigPanel = ({config, onSave}) => {
@@ -13,14 +14,14 @@ const TextInputConfigPanel = ({config, onSave}) => {
     <>
       <div className="h-full">
         <form className="h-full" onSubmit={handleSubmit}>
-          <div className="flex flex-col h-full justify-between py-8">
+          <div className="flex flex-col h-full justify-between pt-8">
             <div>
-            <input
-            defaultValue={config.value}
-              name="textValue"
-              type="text"
-              placeholder="Enter your text input"
-            />
+              <LabeledTextArea
+                name={"textValue"}
+                label={"Text Value"}
+                defaultValue={config.value || ""}
+                placeholder="Enter your text value here..."
+              />
             </div>
             <PrimaryButton/>
           </div>

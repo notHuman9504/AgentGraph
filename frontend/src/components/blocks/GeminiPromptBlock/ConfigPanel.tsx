@@ -1,26 +1,36 @@
+import LabeledNumberField from "../../inputs/LabeledNumberField";
+import LabeledSecretInput from "../../inputs/LabeledSecretField";
 import PrimaryButton from "../../PrimaryButton";
+
+const defaultTemperature = 0.7;
 
 const GeminiPromptBlockConfigPanel = ({config, onSave}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const formData = new FormData(e.currentTarget);
-    // const textValue = formData.get("textValue")
-
-    // config.value = textValue;
-    // onSave(config);
+    const formData = new FormData(e.currentTarget);
+    const apiKey = formData.get("apiKey")
+    const temperature = formData.get("temperature")
+    config.apiKey = apiKey;
+    config.temperature = temperature;
+    onSave(config);
   };
   return (
     <>
       <div className="h-full">
         <form className="h-full" onSubmit={handleSubmit}>
-          <div className="flex flex-col h-full justify-between py-8">
-            <div>
-            <input
-            defaultValue={config.value}
-              name="textValue"
-              type="text"
-              placeholder="Enter your text input"
-            />
+          <div className="flex flex-col h-full justify-between pt-8">
+            <div className="flex flex-col gap-4">
+              <LabeledSecretInput
+              name={"apiKey"}
+              label={"API Key"}
+              defaultValue={config.apiKey || ""}
+              placeholder="Enter your API key here..."
+              />
+              <LabeledNumberField
+              name={"temperature"}
+              label={"Temperature"}
+              defaultValue={config.temperature || defaultTemperature}
+              />
             </div>
             <PrimaryButton/>
           </div>

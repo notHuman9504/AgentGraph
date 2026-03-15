@@ -29,7 +29,7 @@ export default ({nodeList}) => {
       {nodeList.map((node) => (
         <div
           key={node.type}
-          className="p-1 rounded-md hover:bg-slate-200 my-1 whitespace-nowrap"
+          className="p-2 rounded-md shadow-sm bg-slate-200 hover:bg-slate-100 my-2 whitespace-nowrap"
           onDragStart={(event) => onDragStart(event, node.type)}
           draggable
         >
