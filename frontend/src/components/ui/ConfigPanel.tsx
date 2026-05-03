@@ -1,7 +1,7 @@
-import { BLOCK_REGISTRY } from "./blocks/blockRegistry";
+import { BLOCK_REGISTRY } from "../blocks/blockRegistry";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import { useBlock } from "./PipelineProvider";
+import { useBlock } from "../../contexts/PipelineProvider";
 
 const ConfigPanel = ({ node, closePanel, onSave }) => {
   const { blockId } = useBlock();

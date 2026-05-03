@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
-import RootLayout from "../layouts/RootLayout.tsx";
-import Home from "../pages/home";
-import Dashboard from "../pages/dashboard";
+import RootLayout from "./layouts/RootLayout.tsx";
+import Home from "./pages/home";
+import Dashboard from "./pages/dashboard";
 
 const routes = createBrowserRouter([
     {
@@ -9,7 +9,7 @@ const routes = createBrowserRouter([
         Component: RootLayout,
         children: [
             { index: true, Component: Home },
-            { path: "dashboard", Component: Dashboard },
+            { path: "playground", Component: Dashboard },
         ],
     },
 ]);

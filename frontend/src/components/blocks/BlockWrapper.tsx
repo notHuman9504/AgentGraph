@@ -1,5 +1,5 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useBlock } from "../PipelineProvider";
+import { useBlock } from "../../contexts/PipelineProvider";
 const BlockWrapper = ({ BlockId, children }) => {
     const {blockId, setBlockId, setNodes, setEdges} = useBlock();
   return (

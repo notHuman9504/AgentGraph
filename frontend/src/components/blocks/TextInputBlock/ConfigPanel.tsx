@@ -1,5 +1,5 @@
-import LabeledTextArea from "../../inputs/LabeledTextArea"
-import PrimaryButton from "../../PrimaryButton";
+import LabeledTextArea from "../../forms/LabeledTextArea"
+import PrimaryButton from "../../ui/PrimaryButton";
 
 const TextInputConfigPanel = ({config, onSave}) => {
   const handleSubmit = (e) => {

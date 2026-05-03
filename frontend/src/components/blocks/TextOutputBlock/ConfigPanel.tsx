@@ -1,19 +1,10 @@
-import LabeledTextArea from "../../inputs/LabeledTextArea";
-import PrimaryButton from "../../PrimaryButton";
+import LabeledTextArea from "../../forms/LabeledTextArea";
 
-const TextOutputConfigPanel = ({config, onSave}) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const textValue = formData.get("textValue")
-
-    config.value = textValue;
-    onSave(config);
-  };
+const TextOutputConfigPanel = ({config}) => {
   return (
     <>
       <div className="h-full">
-        <form className="h-full" onSubmit={handleSubmit}>
+        <form className="h-full">
           <div className="flex flex-col h-full justify-between pt-8">
             <div>
               <LabeledTextArea
@@ -24,7 +15,6 @@ const TextOutputConfigPanel = ({config, onSave}) => {
                 disabled={true}
               />
             </div>
-            <PrimaryButton/>
           </div>
         </form>
       </div>

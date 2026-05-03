@@ -1,5 +1,5 @@
-import Playground from "../components/playground";
-import {PipelineProvider} from "../components/PipelineProvider"
+import Playground from "./playground";
+import {PipelineProvider} from "../contexts/PipelineProvider"
 
 
 function Dashboard() {

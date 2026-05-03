@@ -1,6 +1,6 @@
-import LabeledNumberField from "../../inputs/LabeledNumberField";
-import LabeledSecretInput from "../../inputs/LabeledSecretField";
-import PrimaryButton from "../../PrimaryButton";
+import LabeledNumberField from "../../forms/LabeledNumberField";
+import LabeledSecretInput from "../../forms/LabeledSecretField";
+import PrimaryButton from "../../ui/PrimaryButton";
 
 const defaultTemperature = 0.7;
 
